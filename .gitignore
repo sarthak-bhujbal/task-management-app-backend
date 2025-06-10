@@ -1,0 +1,34 @@
+# Node modules
+node_modules/
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# dotenv environment variable files
+.env
+
+# OS-specific files
+.DS_Store
+Thumbs.db
+
+# Optional: VSCode settings
+.vscode/
+
+# Coverage directory used by testing tools
+coverage/
+
+# Compiled files and cache
+dist/
+build/
+*.tsbuildinfo
+
+# Optional: dependency lock file (if using Yarn or NPM, not both)
+# yarn.lock
+# package-lock.json
+
+# Git metadata backups
+*.orig
