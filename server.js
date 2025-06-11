@@ -21,8 +21,13 @@ mongoose
 app.get("/", (req, res) => {
   res.send("API is running...");
 });
+
 const taskRoutes = require("./routes/taskRoutes");
 app.use("/api/tasks", taskRoutes);
+
+const authRoutes = require('./routes/authRoutes');
+app.use('/api/auth', authRoutes);
+
 
 // Start server
 const PORT = process.env.PORT || 5000;
