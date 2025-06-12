@@ -10,7 +10,9 @@ exports.createTask = async (req, res) => {
   } catch (err) {
     console.error("Create Task Error:", err);
     if (err.name === "ValidationError") {
-      return res.status(400).json({ error: "Validation failed", details: err.errors });
+      return res
+        .status(400)
+        .json({ error: "Validation failed", details: err.errors });
     }
     res.status(500).json({ error: "Server error while creating task" });
   }
@@ -61,7 +63,9 @@ exports.updateTask = async (req, res) => {
   } catch (err) {
     console.error("Update Task Error:", err);
     if (err.name === "ValidationError") {
-      return res.status(400).json({ error: "Validation failed", details: err.errors });
+      return res
+        .status(400)
+        .json({ error: "Validation failed", details: err.errors });
     }
     res.status(500).json({ error: "Server error while updating task" });
   }
@@ -81,5 +85,28 @@ exports.deleteTask = async (req, res) => {
   } catch (err) {
     console.error("Delete Task Error:", err);
     res.status(500).json({ error: "Server error while deleting task" });
+  }
+};
+
+// ✅ Update Task Status Only
+exports.updateStatus = async (req, res) => {
+  const { id } = req.params;
+  const { status } = req.body;
+
+  if (!mongoose.Types.ObjectId.isValid(id)) {
+    return res.status(400).json({ error: "Invalid task ID format" });
+  }
+
+  try {
+    const task = await Task.findByIdAndUpdate(
+      id,
+      { status },
+      { new: true, runValidators: true }
+    );
+    if (!task) return res.status(404).json({ error: "Task not found" });
+    res.status(200).json(task);
+  } catch (err) {
+    console.error("Update Status Error:", err);
+    res.status(500).json({ error: "Server error while updating status" });
   }
 };
